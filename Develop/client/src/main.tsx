@@ -1,15 +1,21 @@
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import App from './App';
 
+// ✅ Set up Apollo Client
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql',
+  uri: 'http://localhost:3001/graphql', // ✅ Make sure this URL matches your backend
   cache: new InMemoryCache(),
 });
 
-ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
-  document.getElementById('root')
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <ApolloProvider client={client}>  {/* ✅ Wrap in ApolloProvider */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApolloProvider>
+  </React.StrictMode>
 );
